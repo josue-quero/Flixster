@@ -15,9 +15,12 @@ public class Movie {
     String backDropPath;
     String title;
     String overview;
+    String releaseDate;
     Double voteAverage;
+    Integer id;
 
-    public Movie() {}
+    public Movie() {
+    }
 
 
     public Movie(JSONObject jsonObject) throws JSONException {
@@ -26,6 +29,8 @@ public class Movie {
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
         voteAverage = jsonObject.getDouble("vote_average");
+        id = jsonObject.getInt("id");
+        releaseDate = jsonObject.getString("release_date");
     }
 
     public static List<Movie> fromJSONArray(JSONArray movieJsonArray) throws JSONException {
@@ -55,4 +60,13 @@ public class Movie {
     public Double getVoteAverage() {
         return voteAverage;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
 }

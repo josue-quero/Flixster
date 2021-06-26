@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapters.MovieAdapter;
+import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
 
 import org.json.JSONArray;
@@ -30,20 +32,25 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
 
     List<Movie> movies;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
         movies = new ArrayList<>();
 
         // Create the adapter
         MovieAdapter movieAdapter = new MovieAdapter(this, movies);
         // Set the adapter on the Recycler View
-        rvMovies.setAdapter(movieAdapter);
+        binding.rvMovies.setAdapter(movieAdapter);
         // Set a Layout Manager on the Recycler View
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -68,5 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure");
             }
         });
+
     }
 }
